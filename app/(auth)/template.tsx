@@ -7,16 +7,16 @@ export default function AuthLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [input, setInput] = useState("");
+  //const [input, setInput] = useState("");
   return (
     <div>
       <Link href={"/login"}>Login</Link>
       <Link href={"/register"}>Register</Link>
-      <input
+      {/* <input
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-      />
+      /> */}
       {children}
     </div>
   );

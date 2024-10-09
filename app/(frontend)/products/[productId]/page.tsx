@@ -1,32 +1,39 @@
-"use client";
-import Link from "next/link";
-import { notFound, useRouter } from "next/navigation";
+import { Metadata } from "next";
+import ProductDetails from "./ProductDetails";
 
-export default function ProductDetailsPage({
+const getProduct = async (productId: string) => {
+  const res = await fetch(`http://localhost:4000/products/${productId}`);
+  const product = await res.json();
+  return product;
+};
+type Props = {
+  params: { productId: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  try {
+    const product = await getProduct(params.productId);
+    console.log(product);
+    if (product.name) {
+      return {
+        title: product.name,
+      };
+    } else {
+      return {
+        title: params.productId,
+      };
+    }
+  } catch (e) {
+    console.log(e);
+  }
+  return { title: "Not Found" };
+}
+
+export default async function ProductDetailsPage({
   params,
 }: {
   params: { productId: string };
 }) {
-  // console.log(params.productId);
-  const router = useRouter();
-  if (Number(params.productId) > 10) {
-    notFound();
-  }
-  return (
-    <div>
-      Product Details {params.productId}
-      <ul>
-        <li>
-          <Link href={`/products/${params.productId}/reviews/1`}>Review 1</Link>
-        </li>
-        <li>
-          <Link href={`/products/${params.productId}/reviews/2`}>Review 2</Link>
-        </li>
-        <li>
-          <Link href={`/products/${params.productId}/reviews/3`}>Review 3</Link>
-        </li>
-      </ul>
-      <button onClick={() => router.back()}>Place Order</button>
-    </div>
-  );
+  const product = await getProduct(params.productId);
+  return <ProductDetails product={product} />;
 }

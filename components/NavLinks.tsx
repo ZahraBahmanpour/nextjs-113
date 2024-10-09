@@ -1,8 +1,10 @@
 "use client";
+import useCartService from "@/hooks/useCartStore";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function NavLinks() {
+  const { totalCount } = useCartService();
   const pathname = usePathname();
   return (
     <header>
@@ -36,8 +38,12 @@ export default function NavLinks() {
           <li>
             <Link href={"/register"}>Register</Link>
           </li>
+          <li>
+            <Link href={"/cart"}>Cart</Link>
+          </li>
         </menu>
       </nav>
+      {totalCount}
     </header>
   );
 }
