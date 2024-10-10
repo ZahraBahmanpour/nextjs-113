@@ -5,9 +5,6 @@ import dbConnect from "./db/db-connect";
 import UserModel from "./models/User";
 
 const config = {
-  session: {
-    strategy: "jwt",
-  },
   providers: [
     CredentialsProvider({
       credentials: {

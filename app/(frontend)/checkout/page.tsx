@@ -9,7 +9,7 @@ export default function CheckoutPage() {
   return (
     <div>
       {cartItems.map((c) => (
-        <div>{c.name}</div>
+        <div key={c._id}>{c.name}</div>
       ))}
       <div>
         <div>country: {shippingAddress.country}</div>

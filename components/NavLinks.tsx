@@ -1,6 +1,5 @@
 "use client";
 import { logOut } from "@/actions/authAction";
-import { doLogout } from "@/actions/authActions";
 import useCartService from "@/hooks/useCartStore";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
