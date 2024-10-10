@@ -2,8 +2,12 @@ import ProductCard from "@/components/product/ProductCard";
 import dbConnect from "@/db/db-connect";
 import ProductModel, { Product } from "@/models/Product";
 import CreateProduct from "./create-product";
+import { auth } from "@/auth";
 
 export default async function ProductsPage() {
+  const session = await auth();
+  console.log("sssss", session);
+  if (!session) return "Access Denied";
   // const res = await fetch("http://localhost:4000/products"); build time
   // const res = await fetch("http://localhost:4000/products", { on demand
   //   cache: "no-store",
@@ -16,7 +20,7 @@ export default async function ProductsPage() {
   await dbConnect();
   const products = (await ProductModel.find({})) as Product[];
   const parsedProducts: Product[] = JSON.parse(JSON.stringify(products));
-  console.log("ppppppppppppp", parsedProducts);
+  // console.log("ppppppppppppp", parsedProducts);
   return (
     <div>
       <h1>Products List</h1>

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 export default function CartPage() {
   const { cartItems, totalPrice, clear } = useCartService();
   const router = useRouter();
+
   return (
     <div>
       {cartItems.length === 0 ? (
